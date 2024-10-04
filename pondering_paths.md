@@ -25,3 +25,23 @@ In this challenge, we just have to invoke `/pwn` function which returns the flag
 
 As we proceed the paths inside the root directories get more complex.
 In the challenge we access a complex path `/challenge/run`, and it returns the flag.
+```
+hacker@paths~program-and-absolute-paths:~$ /challenge/run
+Correct!!!
+/challenge/run is an absolute path! Here is your flag:
+pwn.college{oToSsSdEp0GoXXeBszzBuzeOadt.dVDN1QDLyETO0czW}
+```
+
+## Position thy self
+
+The Linux filesystem has tons of directories with tons of files.
+You can navigate around directories by using the `cd` (change directory) command and passing a path to it as an argument.
+This affects the "current working directory" of your process (in this case, the bash shell).
+Each process has a directory in which it's currently hanging out.
+
+<br>
+
+In this challenge, we need to change directories to the one they specify in the running prompts.
+Navigate to it, in this case `/usr/bin` and run the `/challenge/run` function.
+
+
