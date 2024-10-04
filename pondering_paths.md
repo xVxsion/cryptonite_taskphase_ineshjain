@@ -90,7 +90,16 @@ pwn.college{sTCxg9rDF6qtRaRKrAp7M6OBkgv.ddDN1QDLyETO0czW}
 This challenge is supposed to serve as a practice for `Position thy self` again.
 We switch directories and run the absolute path to get the flag.
 ```
-
+hacker@paths~position-yet-elsewhere:~$ /challenge/run
+Incorrect...
+You are not currently in the /sys/kernel directory.
+Please use the `cd` utility to change directory appropriately.
+hacker@paths~position-yet-elsewhere:~$ cd /sys/kernel
+hacker@paths~position-yet-elsewhere:/sys/kernel$ /challenge/run
+Correct!!!
+/challenge/run is an absolute path, invoked from the right directory!
+Here is your flag:
+pwn.college{snXK0bNwlHzOKEykPNwyKm3PWsO.dhDN1QDLyETO0czW}
 ```
 
 
@@ -109,6 +118,16 @@ Things we learnt :
       - If my cwd is `/tmp/a/b/c`, then a relative path to the file is `../my_file`. The `..` refers to the parent directory.
 
 ```
+hacker@paths~implicit-relative-paths-from-:~$ /challenge/run
+Incorrect...
+You are not currently in the / directory.
+Please use the `cd` utility to change directory appropriately.
+hacker@paths~implicit-relative-paths-from-:~$ cd /
+hacker@paths~implicit-relative-paths-from-:/$ challenge/run
+Correct!!!
+challenge/run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{kjlPoMWxkpjLg6MvdMQE6SPJ4ZH.dlDN1QDLyETO0czW}
 ```
 
 In this challenge you run the run command in the mentioned directory. 
@@ -132,11 +151,62 @@ The following relative paths are also all identical to each other:
 Things we learnt : If your current working directory is `/`, the above relative paths are equivalent to the above absolute paths.
 
 ```
+hacker@paths~explicit-relative-paths-from-:~$ /challenge/run
+Incorrect...
+You are not currently in the / directory.
+Please use the `cd` utility to change directory appropriately.
+hacker@paths~explicit-relative-paths-from-:~$ cd /
+hacker@paths~explicit-relative-paths-from-:/$ ./challenge/run
+Correct!!!
+./challenge/run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{4XDCHIXhsoeg18pf7dOmZXVvD7Q.dBTN1QDLyETO0czW}
 ```
 
 In this challenge you run the run command in the mentioned directory. 
 The catch is to use the relative path of the directory. (invoked explicitly)
 
 
+## Implicit relative path
 
+Important note :
+```
+hacker@dojo:~$ cd /challenge
+hacker@dojo:/challenge$ run
+```
+This will not invoke /challenge/run.
+This is actually a safety measure. I
+f Linux searched the current directory for programs every time you entered a naked path, 
+you could accidentally execute programs in your current directory that happened to have the same names as core system utilities!
+As a result, the above commands will yield an error.
+
+```
+hacker@paths~implicit-relative-path:~$ cd /challenge
+hacker@paths~implicit-relative-path:/challenge$ ./run
+Correct!!!
+./run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{o4CADANv9oMr7j9xkHqjfAy9Eb3.dFTN1QDLyETO0czW}
+```
+
+## Home Sweet Home
+
+Every user has a home directory, typically under /home in the filesystem.
+In the dojo, you are the hacker user, and your home directory is /home/hacker.
+<br>
+Note that the expansion of ~ is an absolute path, and only the leading ~ is expanded.
+This means, for example, that ~/~ will be expanded to /home/hacker/~ rather than /home/hacker/home/hacker.
+<br>
+
+In this challenge, /challenge/run will write a copy of the flag to any file you specify as an argument on the commandline, with these constraints:
+- Your argument must be an absolute path.
+- The path must be inside your home directory.
+- Before expansion, your argument must be three characters or less.
+
+```
+hacker@paths~home-sweet-home:~$  /challenge/run ~/~
+Writing the file to /home/hacker/~!
+... and reading it back to you:
+pwn.college{4visOrjAto1Fti-Hd4hWhTbBTg8.dNzM4QDLyETO0czW}
+```
 
