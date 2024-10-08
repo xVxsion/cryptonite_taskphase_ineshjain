@@ -77,20 +77,15 @@ pwn.college                                                             May 2024
 hacker@man~reading-manuals:~$  /challenge/challenge --wlxkqv 483
 Correct usage! Your flag: pwn.college{wlxkqVv4H_jGbnW83SCj8XcsQlg.dRTM4QDLyETO0czW}
 ```
-In this challenge, we had to search through the `challenge` command manual.
-To search for the flag type in `/flag` and go through the results, 
-using the `n` until you find the valid argument. 
-(in this case `--txak`) 
-Run the command with the argument and retrieve the flag.
+In this challenge, we needed to call the manual for the challenge command.
+Read through the manual and find the command clue.
+Run the command with the correct argument, and retrieve the flag.
 
-## Searching for Manuals
+## Searching Manuals
 
-HINT 1: `man man` teaches you advanced usage of the man command itself, and you must use this knowledge to figure out how to search for the hidden manpage that will tell you how to use `/challenge/challenge`
-<br>
-HINT 2: Though the man page is randomly named, you still actually use /challenge/challenge to get the flag!
-<br>
-In this challenge, we call the `man man` function which returns the manual for `man`.
-In this manual we search for a command which can lead us to the `challenge` manual.
-We find the use of `-k` which states : 
+You can scroll man pages with the arrow keys (and PgUp/PgDn) and search with `/`.
+After searching, you can hit `n` to go to the next result and `N` to go to the previous result.
+Instead of `/`, you can use `?` to search backwards!
 
 ```
+
